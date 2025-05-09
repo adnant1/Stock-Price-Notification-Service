@@ -9,7 +9,7 @@ aws:
   region: us-east-2
 
 dynamodb:
-  table-name: StockAlertsTable  # To be configured later
+  table-name: StockAlertsTable
   region: us-east-2
 
 sns:
