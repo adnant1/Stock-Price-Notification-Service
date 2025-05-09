@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: stock_price_notification_service
+
+server:
+  port: 8080
+
+aws:
+  region: us-east-2
+
+dynamodb:
+  table-name: StockAlertsTable  # To be configured later
+  region: us-east-2
+
+sns:
+  topic-arn: arn:aws:sns:us-east-2:123456789012:StockAlertsTopic  # To be configured later
