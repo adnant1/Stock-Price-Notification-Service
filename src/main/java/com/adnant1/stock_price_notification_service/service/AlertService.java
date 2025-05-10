@@ -36,11 +36,6 @@ public class AlertService {
      * It checks if the user exists and if any alerts are found.
      */
     public List<Alert> getAlertsByUserId(String userId) {
-        String user = alertRepository.findUser(userId);
-        if (user == null) {
-            throw new IllegalArgumentException("User not found");
-        }
-
         List<Alert> alerts = alertRepository.getAlertsByUserId(userId);
         if (alerts.isEmpty()) {
             throw new IllegalArgumentException("No alerts found for user");
