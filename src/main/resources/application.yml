@@ -3,7 +3,8 @@ spring:
     name: stock_price_notification_service
 
 server:
-  port: 8080
+  error:
+    include-message: always
 
 aws:
   region: us-east-2

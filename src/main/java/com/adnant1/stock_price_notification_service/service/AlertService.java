@@ -1,9 +1,9 @@
 package com.adnant1.stock_price_notification_service.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 import com.adnant1.stock_price_notification_service.model.Alert;
 import com.adnant1.stock_price_notification_service.repository.AlertRepository;
 
@@ -23,24 +23,59 @@ public class AlertService {
         this.alertRepository = alertRepository;
     }
 
+    /*
+     * This method creates a new stock alert for a user. 
+     * It checks if the user exists and if the alert already exists before adding it to the repository.
+     */
     public void createAlert(Alert alert) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createAlert'");
+        alertRepository.addAlert(alert);
     }
 
+    /*
+     * This method retrieves all stock alerts for a specific user. 
+     * It checks if the user exists and if any alerts are found.
+     */
     public List<Alert> getAlertsByUserId(String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAlertsByUserId'");
+        String user = alertRepository.findUser(userId);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        List<Alert> alerts = alertRepository.getAlertsByUserId(userId);
+        if (alerts.isEmpty()) {
+            throw new IllegalArgumentException("No alerts found for user");
+        }
+
+        return alerts;
     }
 
+    /*
+     * This method updates the price threshold for a specific stock alert. 
+     * It checks if the alert exists before updating it in the repository.
+     */
     public void updateAlertPrice(String userId, String stockTicker, double newPrice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAlert'");
+        Optional<Alert> alert = alertRepository.findAlert(userId, stockTicker);
+
+        if (alert.isPresent()) {
+            alert.get().setTargetPrice(newPrice);
+            alertRepository.updateAlert(alert.get());
+        } else {
+            throw new IllegalArgumentException("Alert not found");
+        }
     }
 
+    /*
+     * This method deletes a specific stock alert by its userId and stockTicker. 
+     * It checks if the alert exists before deleting it from the repository.
+     */
     public void deleteAlert(String userId, String stockTicker) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAlert'");
+        Optional<Alert> alert = alertRepository.findAlert(userId, stockTicker);
+
+        if (alert.isPresent()) {
+            alertRepository.deleteAlert(userId, stockTicker);
+        } else {
+            throw new IllegalArgumentException("Alert not found");
+        }
     }
 
 
