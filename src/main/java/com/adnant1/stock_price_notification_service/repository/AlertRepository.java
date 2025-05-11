@@ -60,7 +60,7 @@ public class AlertRepository {
         Key key = buildKey(alert.getUserId(), alert.getStockTicker());
         
         Optional<Alert> existingAlert = Optional.ofNullable(alertTable.getItem(r -> r.key(key)));
-        if (existingAlert.isPresent()) {
+        if (!existingAlert.isEmpty()) {
             throw new IllegalArgumentException("Alert already exists for this user and stock ticker");
         }
 

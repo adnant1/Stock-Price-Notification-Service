@@ -51,7 +51,7 @@ public class AlertService {
     public void updateAlertPrice(String userId, String stockTicker, double newPrice) {
         Optional<Alert> alert = alertRepository.findAlert(userId, stockTicker);
 
-        if (alert.isPresent()) {
+        if (!alert.isEmpty()) {
             alert.get().setTargetPrice(newPrice);
             alertRepository.updateAlert(alert.get());
         } else {
@@ -66,7 +66,7 @@ public class AlertService {
     public void deleteAlert(String userId, String stockTicker) {
         Optional<Alert> alert = alertRepository.findAlert(userId, stockTicker);
 
-        if (alert.isPresent()) {
+        if (!alert.isEmpty()) {
             alertRepository.deleteAlert(userId, stockTicker);
         } else {
             throw new IllegalArgumentException("Alert not found");
