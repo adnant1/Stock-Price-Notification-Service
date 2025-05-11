@@ -1,8 +1,11 @@
-package com.adnant1.stock_price_notification_service.repository;
+package com.adnant1.stock_price_notification_service.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/*
+ * This class is responsible for holding the configuration properties for DynamoDB.
+ */
 @Component
 @ConfigurationProperties(prefix = "dynamodb")
 public class DynamoDbConfigProperties {

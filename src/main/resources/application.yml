@@ -15,3 +15,7 @@ dynamodb:
 
 sns:
   topic-arn: arn:aws:sns:us-east-2:123456789012:StockAlertsTopic  # To be configured later
+
+finnhub:
+  api-key: ${FINNHUB_API_KEY}
+  base-url: https://finnhub.io/api/v1

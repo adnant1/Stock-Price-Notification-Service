@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
+
+import com.adnant1.stock_price_notification_service.configuration.DynamoDbConfigProperties;
 import com.adnant1.stock_price_notification_service.model.Alert;
 
 import software.amazon.awssdk.enhanced.dynamodb.*;
