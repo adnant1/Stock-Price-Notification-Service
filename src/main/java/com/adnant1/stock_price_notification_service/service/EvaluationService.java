@@ -1,8 +1,12 @@
 package com.adnant1.stock_price_notification_service.service;
 
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.adnant1.stock_price_notification_service.model.Alert;
+import com.adnant1.stock_price_notification_service.notifier.NotificationService;
 
 /*
  * This service class is responsible for evaluating whether a 
@@ -11,12 +15,14 @@ import com.adnant1.stock_price_notification_service.model.Alert;
 @Service
 public class EvaluationService {
     private final StockFetcherService stockFetcherService;
+    private final NotificationService notificationService;
 
     /*
      * Constructor that initializes the stock fetcher service.
      */
-    public EvaluationService(StockFetcherService stockFetcherService) {
+    public EvaluationService(StockFetcherService stockFetcherService, NotificationService notificationService) {
         this.stockFetcherService = stockFetcherService;
+        this.notificationService = notificationService;
     }
 
     /*
@@ -32,11 +38,21 @@ public class EvaluationService {
         // Check if the condition is met
         if (condition.equals("over")) {
             return currentPrice > targetPrice;
-        } else if (condition.equals("under")) {
+        } else {
             return currentPrice < targetPrice;
         }
 
-        // If the condition isnt met yet, return false
-        return false;
+    }
+
+    /*
+     * This method takes in a list of alerts and evaluates each one.
+     * If the alert condition is met, it passes the alert to the notification service for further action.
+     */
+    public void evaluateAndNotify(List<Alert> alerts) {
+        for (Alert alert : alerts) {
+            if (evaluateAlert(alert)) {
+                notificationService.sendNotification(alert);
+            }
+        }
     }
 }
