@@ -63,6 +63,4 @@ public class AlertController {
         alertService.deleteAlert(userId, stockTicker);
     }
 
-
-
 }
