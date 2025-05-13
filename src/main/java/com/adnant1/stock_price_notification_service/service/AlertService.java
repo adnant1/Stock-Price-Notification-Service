@@ -73,5 +73,11 @@ public class AlertService {
         }
     }
 
-
+    /*
+     * This method returns all stock alerts from the repository.
+     * It is used by the scheduler to fetch all alerts for evaluation.
+     */
+    public List<Alert> getAllAlerts() {
+        return alertRepository.getAllAlerts();
+    }
 }

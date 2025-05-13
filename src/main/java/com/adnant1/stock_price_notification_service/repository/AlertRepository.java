@@ -88,6 +88,19 @@ public class AlertRepository {
     }
 
     /*
+     * This method retrieves all alerts from the DynamoDB table. 
+     */
+    public List<Alert> getAllAlerts() {
+        // Scan the table to get all items
+        PageIterable<Alert> alerts = alertTable.scan();
+
+        // Convert the PageIterable to a List
+        List<Alert> alertList = alerts.stream().flatMap(page -> page.items().stream()).toList();
+
+        return alertList;
+    }
+
+    /*
      * This method retrieves a specific alert for a user and stock ticker from the DynamoDB table. 
      * It uses both the user's ID and stock ticker as keys to query the table.
      */

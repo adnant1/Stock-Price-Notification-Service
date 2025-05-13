@@ -29,7 +29,7 @@ public class EvaluationService {
      * This method evaluates whether the current stock price meets the alert conditions.
      * It compares the current stock price with the user's set threshold and returns true if the user 's set condition is met.
      */
-    public boolean evaluateAlert(Alert alert){
+    private boolean evaluateAlert(Alert alert){
         // Get current price and needed parameters from the alert object
         double currentPrice = stockFetcherService.fetchCurrentStockPrice(alert.getStockTicker());
         double targetPrice = alert.getTargetPrice();
