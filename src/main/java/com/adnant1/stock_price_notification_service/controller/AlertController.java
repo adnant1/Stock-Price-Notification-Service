@@ -32,6 +32,14 @@ public class AlertController {
     }
     
     /*
+     * Home endpoint for the alert service.
+     */
+    @GetMapping
+    public String home() {
+        return "Welcome to the Stock Price Notification Service!";
+    }
+
+    /*
      * This endpoint allows users to create a new stock alert. 
      */
     @PostMapping

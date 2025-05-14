@@ -34,11 +34,14 @@ public class EvaluationService {
         double currentPrice = stockFetcherService.fetchCurrentStockPrice(alert.getStockTicker());
         double targetPrice = alert.getTargetPrice();
         String condition = alert.getCondition();
+        System.out.println("Price for " + alert.getStockTicker() + ": " + currentPrice);
 
         // Check if the condition is met
         if (condition.equals("over")) {
+            System.out.println("Returning: " + (currentPrice > targetPrice));
             return currentPrice > targetPrice;
         } else {
+            System.out.println("Returning: " + (currentPrice < targetPrice));
             return currentPrice < targetPrice;
         }
 
@@ -49,8 +52,11 @@ public class EvaluationService {
      * If the alert condition is met, it passes the alert to the notification service for further action.
      */
     public void evaluateAndNotify(List<Alert> alerts) {
+        System.out.println("Evaluating alerts...");
         for (Alert alert : alerts) {
+            System.out.println("Evaluating alert for stock: " + alert.getStockTicker());
             if (evaluateAlert(alert)) {
+                System.out.println("Alert condition met for stock: " + alert.getStockTicker());
                 notificationService.sendNotification(alert);
             }
         }

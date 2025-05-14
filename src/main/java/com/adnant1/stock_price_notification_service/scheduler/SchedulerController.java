@@ -20,6 +20,7 @@ public class SchedulerController {
      */
     @PostMapping(path = "/scheduler/run")
     public void runPriceCheck(){
+        System.out.println("Running scheduler");
         priceCheckScheduler.runPriceCheck();
     }
 

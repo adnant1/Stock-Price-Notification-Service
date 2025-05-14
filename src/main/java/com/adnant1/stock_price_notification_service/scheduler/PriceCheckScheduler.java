@@ -26,9 +26,12 @@ public class PriceCheckScheduler {
      * This method is used by the controller to evaluate stock prices for all alerts.
      */
     public void runPriceCheck() {
+        System.out.println("Running price check");
+
         // Fetch all alerts from the database
         List<Alert> alerts = alertService.getAllAlerts();
 
+        System.out.println("Number of alerts to evaluate: " + alerts.size());
         // Evaluate and notify users if their alert conditions are met
         evaluationService.evaluateAndNotify(alerts);
     }

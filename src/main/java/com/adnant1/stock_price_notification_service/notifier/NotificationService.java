@@ -28,6 +28,7 @@ public class NotificationService {
      * It creates a topic for the user if it doesn't exist, subscribes the user to the topic, and publishes the notification message.
      */
     public void sendNotification(Alert alert) {
+        System.out.println("Inside notificaiton service");
         String email = alert.getEmail();
         String stockTicker = alert.getStockTicker();
 
@@ -36,6 +37,7 @@ public class NotificationService {
 
         // 1. Create (or get) topic
         String topicArn = getOrCreateTopicArn(topicName);
+        System.out.println("Made topic");
 
         // 2. Subscribe if not already
         if (!isEmailSubscribed(topicArn, email)) {
@@ -45,6 +47,7 @@ public class NotificationService {
                 .topicArn(topicArn)
                 .build());
         }
+        System.out.println("Subscribed to topic");
 
         // 3. Publish the notification
         snsClient.publish(PublishRequest.builder()
@@ -52,6 +55,7 @@ public class NotificationService {
             .subject("Stock Alert Triggered")
             .message(message)
             .build());
+        System.out.println("Published message to topic");
     }
 
     /*
