@@ -18,7 +18,7 @@ public class SchedulerController {
     /*
      * This endpoint is triggered by AWS EventBridge to evaluate stock prices for all alerts.
      */
-    @PostMapping(path = "/scheduler/run")
+    @GetMapping(path = "/scheduler/run")
     public void runPriceCheck(){
         System.out.println("Running scheduler");
         priceCheckScheduler.runPriceCheck();
