@@ -28,7 +28,6 @@ public class NotificationService {
      * It creates a topic for the user if it doesn't exist, subscribes the user to the topic, and publishes the notification message.
      */
     public void sendNotification(Alert alert) {
-        System.out.println("Inside notificaiton service");
         String email = alert.getEmail();
         String stockTicker = alert.getStockTicker();
 

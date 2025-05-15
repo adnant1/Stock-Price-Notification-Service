@@ -1,6 +1,5 @@
 package com.adnant1.stock_price_notification_service.scheduler;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +18,8 @@ public class SchedulerController {
     /*
      * This endpoint is triggered by AWS EventBridge to evaluate stock prices for all alerts.
      */
-    @GetMapping(path = "/scheduler/run")
+    @PostMapping(path = "/scheduler/run")
     public void runPriceCheck(){
-        System.out.println("Running scheduler");
         priceCheckScheduler.runPriceCheck();
     }
 
