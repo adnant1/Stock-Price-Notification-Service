@@ -16,3 +16,6 @@ dynamodb:
 finnhub:
   api-key: ${FINNHUB_API_KEY}
   base-url: https://finnhub.io/api/v1
+
+scheduler:
+  secret-key: ${SCHEDULER_SECRET_KEY}

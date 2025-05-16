@@ -1,6 +1,10 @@
 package com.adnant1.stock_price_notification_service.scheduler;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -10,17 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SchedulerController {
     private final PriceCheckScheduler priceCheckScheduler;
+    private final String schedulerKey;
 
-    public SchedulerController(PriceCheckScheduler priceCheckScheduler) {
+    public SchedulerController(PriceCheckScheduler priceCheckScheduler, @Value("${scheduler.secret-key}") String schedulerKey) {
         this.priceCheckScheduler = priceCheckScheduler;
+        this.schedulerKey = schedulerKey;
     }   
 
     /*
      * This endpoint is triggered by AWS EventBridge to evaluate stock prices for all alerts.
      */
-    @PostMapping(path = "/scheduler/run")
-    public void runPriceCheck(){
+    @PostMapping("/scheduler/run")
+    public ResponseEntity<?> runPriceCheck(@RequestHeader("X-Auth-Key") String key) {
+        if (!schedulerKey.equals(key)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         priceCheckScheduler.runPriceCheck();
+        return ResponseEntity.ok().build();
     }
 
 }
