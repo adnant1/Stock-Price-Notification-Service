@@ -1,6 +1,6 @@
 spring:
   application:
-    name: stock_price_notification_service
+    name: stock_alert_service
 
 server:
   error:

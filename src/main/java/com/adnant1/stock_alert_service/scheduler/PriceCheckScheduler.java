@@ -1,12 +1,12 @@
-package com.adnant1.stock_price_notification_service.scheduler;
+package com.adnant1.stock_alert_service.scheduler;
 
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.adnant1.stock_price_notification_service.model.Alert;
-import com.adnant1.stock_price_notification_service.service.AlertService;
-import com.adnant1.stock_price_notification_service.service.EvaluationService;
+import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.service.AlertService;
+import com.adnant1.stock_alert_service.service.EvaluationService;
 
 /*
  * This class is responsible for the stock price checks. 

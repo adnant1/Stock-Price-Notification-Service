@@ -1,1 +1,1 @@
-Stock Price Notification Service
+Stock Alert Service

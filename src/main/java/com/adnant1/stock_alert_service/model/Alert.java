@@ -1,4 +1,4 @@
-package com.adnant1.stock_price_notification_service.model;
+package com.adnant1.stock_alert_service.model;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;

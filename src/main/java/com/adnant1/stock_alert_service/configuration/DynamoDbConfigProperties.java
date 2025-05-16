@@ -1,4 +1,4 @@
-package com.adnant1.stock_price_notification_service.configuration;
+package com.adnant1.stock_alert_service.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

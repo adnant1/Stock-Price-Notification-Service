@@ -1,4 +1,4 @@
-package com.adnant1.stock_price_notification_service.controller;
+package com.adnant1.stock_alert_service.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.adnant1.stock_price_notification_service.model.Alert;
-import com.adnant1.stock_price_notification_service.service.AlertService;
+import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.service.AlertService;
 
 import java.util.List;
 

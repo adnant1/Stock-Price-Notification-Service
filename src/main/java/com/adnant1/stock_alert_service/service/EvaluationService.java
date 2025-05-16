@@ -1,12 +1,12 @@
-package com.adnant1.stock_price_notification_service.service;
+package com.adnant1.stock_alert_service.service;
 
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.adnant1.stock_price_notification_service.model.Alert;
-import com.adnant1.stock_price_notification_service.notifier.NotificationService;
+import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.notifier.NotificationService;
 
 /*
  * This service class is responsible for evaluating whether a 

@@ -1,4 +1,4 @@
-package com.adnant1.stock_price_notification_service.configuration;
+package com.adnant1.stock_alert_service.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

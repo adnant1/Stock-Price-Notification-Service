@@ -1,13 +1,13 @@
-package com.adnant1.stock_price_notification_service;
+package com.adnant1.stock_alert_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StockPriceNotificationServiceApplication {
+public class StockAlertServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StockPriceNotificationServiceApplication.class, args);
+		SpringApplication.run(StockAlertServiceApplication.class, args);
 	}
 
 }

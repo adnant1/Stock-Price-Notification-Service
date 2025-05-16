@@ -1,10 +1,10 @@
-package com.adnant1.stock_price_notification_service;
+package com.adnant1.stock_alert_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StockPriceNotificationServiceApplicationTests {
+class StockAlertServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

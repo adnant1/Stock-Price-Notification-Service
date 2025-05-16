@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.adnant1</groupId>
-	<artifactId>stock_price_notification_service</artifactId>
+	<artifactId>stock_alert_service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>stock_price_notification_service</name>
+	<name>stock_alert_service</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -102,7 +102,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
 			<configuration>
-				<mainClass>com.adnant1.stock_price_notification_service.StockPriceNotificationServiceApplication</mainClass>
+				<mainClass>com.adnant1.stock_alert_service.StockAlertServiceApplication</mainClass>
 				<excludes>
 					<exclude>
 						<groupId>org.projectlombok</groupId>

@@ -1,7 +1,7 @@
-package com.adnant1.stock_price_notification_service.notifier;
+package com.adnant1.stock_alert_service.notifier;
 
 import org.springframework.stereotype.Service;
-import com.adnant1.stock_price_notification_service.model.Alert;
+import com.adnant1.stock_alert_service.model.Alert;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse;

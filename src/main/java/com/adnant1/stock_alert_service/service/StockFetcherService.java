@@ -1,9 +1,9 @@
-package com.adnant1.stock_price_notification_service.service;
+package com.adnant1.stock_alert_service.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.adnant1.stock_price_notification_service.configuration.FinnhubConfigProperties;
+import com.adnant1.stock_alert_service.configuration.FinnhubConfigProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*

@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 # Cop the JAR file into the container
-COPY target/stock_price_notification_service-0.0.1-SNAPSHOT.jar app.jar
+COPY target/stock_alert_service-0.0.1-SNAPSHOT.jar app.jar
 
 #Expose the application port
 EXPOSE 8080

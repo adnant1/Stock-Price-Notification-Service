@@ -1,4 +1,4 @@
-package com.adnant1.stock_price_notification_service.scheduler;
+package com.adnant1.stock_alert_service.scheduler;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
