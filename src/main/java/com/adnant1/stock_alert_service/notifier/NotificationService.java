@@ -2,6 +2,9 @@ package com.adnant1.stock_alert_service.notifier;
 
 import org.springframework.stereotype.Service;
 import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.model.User;
+import com.adnant1.stock_alert_service.repository.UserRepository;
+
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse;
@@ -18,9 +21,11 @@ import software.amazon.awssdk.services.sns.model.SubscribeRequest;
 public class NotificationService {
 
     private final SnsClient snsClient;
+    private final UserRepository userRepository;
 
-    public NotificationService(SnsClient snsClient) {
+    public NotificationService(SnsClient snsClient, UserRepository userRepository) {
         this.snsClient = snsClient;
+        this.userRepository = userRepository;
     }
 
     /*
@@ -28,7 +33,8 @@ public class NotificationService {
      * It creates a topic for the user if it doesn't exist, subscribes the user to the topic, and publishes the notification message.
      */
     public void sendNotification(Alert alert) {
-        String email = alert.getEmail();
+        String userId = alert.getUserId();
+        String email = userRepository.getUserById(userId).map(User::getEmail).orElseThrow(() -> new IllegalArgumentException("User not found"));
         String stockTicker = alert.getStockTicker();
 
         String topicName = "alerts-" + email.replace("@", "-").replace(".", "-");

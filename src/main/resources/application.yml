@@ -1,6 +1,16 @@
 spring:
   application:
     name: stock_alert_service
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLCLIENTID}
+            client-secret: ${GOOGLSECRET}
+            scope:
+              - email
+              - profile
 
 server:
   error:
@@ -11,6 +21,7 @@ aws:
 
 dynamodb:
   table-name: StockAlertsTable
+  user-table-name: UsersTable
   region: us-east-2
 
 finnhub:
@@ -19,3 +30,4 @@ finnhub:
 
 scheduler:
   secret-key: ${SCHEDULER_SECRET_KEY}
+

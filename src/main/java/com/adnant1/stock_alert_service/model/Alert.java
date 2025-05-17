@@ -16,7 +16,6 @@ public class Alert {
     private String stockTicker;
     private double targetPrice;
     private String condition; // "over" or "under"
-    private String email;
 
     //Partition Key for DynamoDB - The users ID
     @DynamoDbPartitionKey
@@ -52,13 +51,5 @@ public class Alert {
 
     public void setCondition(String condition) {
         this.condition = condition;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
