@@ -35,13 +35,8 @@ public class AlertService {
      * This method retrieves all stock alerts for a specific user. 
      * It checks if the user exists and if any alerts are found.
      */
-    public List<Alert> getAlertsByUserId(String userId) {
-        List<Alert> alerts = alertRepository.getAlertsByUserId(userId);
-        if (alerts.isEmpty()) {
-            throw new IllegalArgumentException("No alerts found for user");
-        }
-
-        return alerts;
+    public List<Alert> getAlertsByUser(String userId) {
+        return alertRepository.getAlertsByUserId(userId);
     }
 
     /*

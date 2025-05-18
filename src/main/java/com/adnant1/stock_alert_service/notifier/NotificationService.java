@@ -8,10 +8,7 @@ import com.adnant1.stock_alert_service.repository.UserRepository;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse;
-import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
-import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicResponse;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
-import software.amazon.awssdk.services.sns.model.SubscribeRequest;
 
 /*
  * This service class is responsible for sending notifications to users when their stock alert conditions are met. 
@@ -40,53 +37,25 @@ public class NotificationService {
         String topicName = "alerts-" + email.replace("@", "-").replace(".", "-");
         String message = "Alert! The stock " + stockTicker + " has met your condition on the target price of " + alert.getTargetPrice() + ".";
 
-        // 1. Create (or get) topic
-        String topicArn = getOrCreateTopicArn(topicName);
-        System.out.println("Made topic");
+        // Get topic
+        String topicArn = getTopicArn(topicName);
 
-        // 2. Subscribe if not already
-        if (!isEmailSubscribed(topicArn, email)) {
-            snsClient.subscribe(SubscribeRequest.builder()
-                .protocol("email")
-                .endpoint(email)
-                .topicArn(topicArn)
-                .build());
-        }
-        System.out.println("Subscribed to topic");
-
-        // 3. Publish the notification
+        // Publish the notification
         snsClient.publish(PublishRequest.builder()
             .topicArn(topicArn)
             .subject("Stock Alert Triggered")
             .message(message)
             .build());
-        System.out.println("Published message to topic");
     }
 
     /*
-     * This method creates a new SNS topic for the user if it doesn't already exist. 
-     * It returns the ARN of the topic.
+     * This method returns the SNS topicARN for the user.
      */
-    private String getOrCreateTopicArn(String topicName) {
+    public String getTopicArn(String topicName) {
         CreateTopicResponse response = snsClient.createTopic(
             CreateTopicRequest.builder().name(topicName).build()
         );
         return response.topicArn();
-    }
-
-    /*
-     * This method checks if the user is already subscribed to the topic. 
-     * It returns true if the user is subscribed, false otherwise.
-     */
-    private boolean isEmailSubscribed(String topicArn, String email) {
-        ListSubscriptionsByTopicResponse response = snsClient.listSubscriptionsByTopic(
-            ListSubscriptionsByTopicRequest.builder().topicArn(topicArn).build()
-        );
-
-        return response.subscriptions().stream()
-            .anyMatch(sub -> sub.endpoint().equalsIgnoreCase(email)
-            && sub.subscriptionArn() != null
-            && !sub.subscriptionArn().equals("PendingConfirmation"));
     }
 }
 

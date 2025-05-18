@@ -1,5 +1,7 @@
 package com.adnant1.stock_alert_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
@@ -23,6 +25,7 @@ public class Alert {
         return userId;
     }
 
+    @JsonIgnore
     public void setUserId(String userId) {
         this.userId = userId;
     }
