@@ -9,6 +9,7 @@ package com.adnant1.stock_alert_service.model;
 public class AlertViewModel {
     private String stockTicker;
     private double targetPrice;
+    private String condition;
     private double currentPrice;
     private boolean triggered;
     private boolean approaching;
@@ -37,6 +38,14 @@ public class AlertViewModel {
         this.targetPrice = targetPrice;
     }
 
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    
     public double getCurrentPrice() {
         return currentPrice;
     }
