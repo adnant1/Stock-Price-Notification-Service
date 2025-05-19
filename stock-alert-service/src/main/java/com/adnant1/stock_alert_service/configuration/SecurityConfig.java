@@ -1,5 +1,6 @@
 package com.adnant1.stock_alert_service.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,11 +29,14 @@ public class SecurityConfig {
     private final UserRepository userRepository;
     private final SnsClient snsClient;
     private final NotificationService notificationService;
+    private final String frontendUrl;
 
-    public SecurityConfig(UserRepository userRepository, SnsClient snsClient, NotificationService notificationService) {
+    public SecurityConfig(UserRepository userRepository, SnsClient snsClient, NotificationService notificationService, 
+                          @Value("${frontend.url}") String frontendUrl) {
         this.userRepository = userRepository;
         this.snsClient = snsClient;
         this.notificationService = notificationService;
+        this.frontendUrl = frontendUrl;
     }
 
     /*
@@ -52,7 +56,7 @@ public class SecurityConfig {
                     .userService(customOAuth2UserService()) // handles user + SNS setup
                 )
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect("/alerts");       // redirect after login
+                    response.sendRedirect(frontendUrl);       // redirect after login
                 })
             );
 

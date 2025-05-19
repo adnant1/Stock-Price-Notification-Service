@@ -16,6 +16,9 @@ server:
   error:
     include-message: always
 
+frontend:
+  url: ${FRONTEND_URL}
+
 aws:
   region: us-east-2
 
@@ -30,4 +33,3 @@ finnhub:
 
 scheduler:
   secret-key: ${SCHEDULER_SECRET_KEY}
-

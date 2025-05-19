@@ -8,6 +8,7 @@
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/controller/AlertController.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/controller/UserController.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/model/Alert.java
+/mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/model/AlertViewModel.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/model/User.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/notifier/NotificationService.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/repository/AlertRepository.java
