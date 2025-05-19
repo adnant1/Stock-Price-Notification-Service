@@ -17,7 +17,7 @@ public class Alert {
     private String userId;
     private String stockTicker;
     private double targetPrice;
-    private String condition; // "over" or "under"
+    private String condition; // "above" or "below"
 
     //Partition Key for DynamoDB - The users ID
     @DynamoDbPartitionKey

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.model.AlertViewModel;
 import com.adnant1.stock_alert_service.service.AlertService;
 
 import java.util.List;
@@ -59,7 +60,17 @@ public class AlertController {
         String userId = extractUserId(user);
         return alertService.getAlertsByUser(userId);
     }
-    
+
+    /*
+    * This endpoint retrieves enriched alert data for the dashboard view.
+    * It includes the current stock price, triggered status, and a warning flag for price proximity.
+    */
+    @GetMapping("/alerts/dashboard")
+    public List<AlertViewModel> getDashboardAlerts(@AuthenticationPrincipal OAuth2User user) {
+        String userId = extractUserId(user);
+        return alertService.getEnrichedAlertsForUser(userId);
+    }
+
     /*
      * This endpoint updates a specific stock alert's price threshold.
      */

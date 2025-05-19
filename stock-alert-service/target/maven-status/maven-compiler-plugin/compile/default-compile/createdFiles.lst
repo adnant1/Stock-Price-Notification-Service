@@ -12,7 +12,6 @@ com/adnant1/stock_alert_service/service/StockFetcherService$StockPriceResponse.c
 com/adnant1/stock_alert_service/configuration/FinnhubConfigProperties.class
 com/adnant1/stock_alert_service/configuration/SecurityConfig.class
 com/adnant1/stock_alert_service/configuration/SnsConfigProperties.class
-com/adnant1/stock_alert_service/controller/HomeController.class
 com/adnant1/stock_alert_service/controller/AlertController.class
 com/adnant1/stock_alert_service/configuration/DynamoDbConfigProperties.class
 com/adnant1/stock_alert_service/controller/UserController.class

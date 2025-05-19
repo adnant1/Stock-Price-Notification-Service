@@ -1,10 +1,12 @@
 package com.adnant1.stock_alert_service.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import com.adnant1.stock_alert_service.model.Alert;
+import com.adnant1.stock_alert_service.model.AlertViewModel;
 import com.adnant1.stock_alert_service.repository.AlertRepository;
 
 /*
@@ -18,9 +20,11 @@ import com.adnant1.stock_alert_service.repository.AlertRepository;
 public class AlertService {
 
     private final AlertRepository alertRepository;
+    private final StockFetcherService stockFetcherService;
 
-    public AlertService(AlertRepository alertRepository) {
+    public AlertService(AlertRepository alertRepository, StockFetcherService stockFetcherService) {
         this.alertRepository = alertRepository;
+        this.stockFetcherService = stockFetcherService;
     }
 
     /*
@@ -37,6 +41,37 @@ public class AlertService {
      */
     public List<Alert> getAlertsByUser(String userId) {
         return alertRepository.getAlertsByUserId(userId);
+    }
+
+    /*
+     * This method retrieves all stock alerts for a specific user and enriches them with runtime data.
+     * It fetches the current stock price and checks if the alert condition has been triggered or is approaching.
+     */
+    public List<AlertViewModel> getEnrichedAlertsForUser(String userId) {
+        List<Alert> alerts = getAlertsByUser(userId);
+        List<AlertViewModel> enrichedAlerts = new ArrayList<>();
+
+        for (Alert alert : alerts) {
+            double currentPrice = stockFetcherService.fetchCurrentStockPrice(alert.getStockTicker());
+            double targetPrice = alert.getTargetPrice();
+            String condition = alert.getCondition();
+
+            boolean triggered = condition.equals("over")
+                ? currentPrice > targetPrice
+                : currentPrice < targetPrice;
+
+            boolean approaching = Math.abs(currentPrice - targetPrice) <= 5;
+
+            enrichedAlerts.add(new AlertViewModel(
+                alert.getStockTicker(),
+                targetPrice,
+                currentPrice,
+                triggered,
+                approaching
+            ));
+        }
+
+        return enrichedAlerts;
     }
 
     /*
