@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
+  const { pathname } = useLocation();
   const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
@@ -37,12 +38,24 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-6">
             <nav className="flex gap-6">
-              <Link
-                to="/"
-                className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-              >
-                Home
-              </Link>
+              {pathname === "/" ? (
+                <button
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                  className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Home
+                </button>
+              ) : (
+                <Link
+                  to="/"
+                  className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Home
+                </Link>
+              )}
+
               {user && (
                 <Link
                   to="/alerts"
