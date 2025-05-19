@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import AlertCard from "../components/AlertCard";
-import CreateAlertModal from "../components/CreateAlertModal";
-import EditAlertModal from "../components/EditAlertModal";
+import CreateAlertModel from "../components/CreateAlertModel";
+import EditAlertModel from "../components/EditAlertModel";
 import { Plus } from "lucide-react";
 
 export default function AlertsPage() {
@@ -13,7 +13,7 @@ export default function AlertsPage() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showCreateModel, setShowCreateModel] = useState(false);
   const [editingAlert, setEditingAlert] = useState(null);
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function AlertsPage() {
         },
       ]);
 
-      setShowCreateModal(false);
+      setShowCreateModel(false);
     } catch (error) {
       console.error("Error creating alert:", error);
       alert("Failed to create alert. Please try again.");
@@ -201,7 +201,7 @@ export default function AlertsPage() {
           </h1>
 
           <button
-            onClick={() => setShowCreateModal(true)}
+            onClick={() => setShowCreateModel(true)}
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
           >
             <Plus className="w-5 h-5" />
@@ -242,7 +242,7 @@ export default function AlertsPage() {
               Create your first stock price alert to get started.
             </p>
             <button
-              onClick={() => setShowCreateModal(true)}
+              onClick={() => setShowCreateModel(true)}
               className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
             >
               Create Alert
@@ -262,15 +262,15 @@ export default function AlertsPage() {
         )}
       </main>
 
-      {showCreateModal && (
-        <CreateAlertModal
-          onClose={() => setShowCreateModal(false)}
+      {showCreateModel && (
+        <CreateAlertModel
+          onClose={() => setShowCreateModel(false)}
           onSubmit={handleCreateAlert}
         />
       )}
 
       {editingAlert && (
-        <EditAlertModal
+        <EditAlertModel
           alert={editingAlert}
           onClose={() => setEditingAlert(null)}
           onSubmit={handleEditAlert}

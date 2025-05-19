@@ -59,10 +59,13 @@ export default function HomePage() {
                 Login with Google
               </button>
 
-              <button className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-medium border border-slate-300 transition-colors dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white dark:border-slate-600">
+              <a
+                href="#how-it-works"
+                className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-medium border border-slate-300 transition-colors dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white dark:border-slate-600"
+              >
                 Learn more
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -145,7 +148,10 @@ export default function HomePage() {
 
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden border border-slate-200 dark:border-slate-700">
             <div className="p-8 md:p-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+              <h2
+                id="how-it-works"
+                className="text-2xl md:text-3xl font-bold mb-4 text-slate-900 dark:text-white"
+              >
                 How TickrAlert Works
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -240,24 +246,13 @@ export default function HomePage() {
               </p>
             </div>
             <div className="flex gap-6">
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-              >
-                Terms
-              </a>
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-              >
+              <span className="text-slate-500 dark:text-slate-400">Terms</span>
+              <span className="text-slate-500 dark:text-slate-400">
                 Privacy
-              </a>
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-              >
+              </span>
+              <span className="text-slate-500 dark:text-slate-400">
                 Contact
-              </a>
+              </span>
             </div>
           </div>
         </div>

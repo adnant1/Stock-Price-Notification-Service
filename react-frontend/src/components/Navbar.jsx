@@ -66,7 +66,7 @@ export default function Navbar() {
                 )}
               </button>
 
-              {user ? (
+              {user && (
                 <div className="relative group">
                   <button className="flex items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
                     <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold">
@@ -93,15 +93,6 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-              ) : (
-                <button
-                  onClick={() =>
-                    (window.location.href = "/oauth2/authorization/google")
-                  }
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
-                >
-                  Sign in
-                </button>
               )}
             </div>
           </div>
@@ -156,7 +147,7 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {user ? (
+              {user && (
                 <button
                   onClick={() => {
                     logout();
@@ -165,15 +156,6 @@ export default function Navbar() {
                   className="px-4 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 text-left"
                 >
                   Sign out
-                </button>
-              ) : (
-                <button
-                  onClick={() =>
-                    (window.location.href = "/oauth2/authorization/google")
-                  }
-                  className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
-                >
-                  Sign in
                 </button>
               )}
             </nav>
