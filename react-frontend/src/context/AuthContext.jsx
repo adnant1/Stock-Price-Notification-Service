@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     // Redirect to Google OAuth
-    window.location.href = "/oauth2/authorization/google";
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/login`;
   };
 
   const logout = () => {
