@@ -12,6 +12,10 @@ export default function HomePage() {
 
   // If user is already logged in, redirect to alerts page
   useEffect(() => {
+    console.log("HomePage loaded");
+    console.log("User from context:", user);
+    console.log("Token in localStorage:", localStorage.getItem("auth_token"));
+
     if (user) {
       navigate("/alerts");
     }

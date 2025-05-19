@@ -3,7 +3,14 @@
 import { ArrowDown, ArrowUp, Edit, Trash2 } from "lucide-react";
 
 export default function AlertCard({ alert, onEdit, onDelete }) {
-  const { ticker, targetPrice, condition, currentPrice, status } = alert;
+  const {
+    stockTicker,
+    targetPrice,
+    currentPrice,
+    condition,
+    triggered,
+    approaching,
+  } = alert;
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-US", {
@@ -14,30 +21,23 @@ export default function AlertCard({ alert, onEdit, onDelete }) {
   };
 
   const getStatusColor = () => {
-    if (status === "triggered") {
-      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
-    }
-    return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400";
+    return triggered
+      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+      : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400";
   };
 
   const getConditionIcon = () => {
-    if (condition === "above") {
-      return <ArrowUp className="w-4 h-4" />;
-    }
-    return <ArrowDown className="w-4 h-4" />;
+    return condition === "above" ? (
+      <ArrowUp className="w-4 h-4" />
+    ) : (
+      <ArrowDown className="w-4 h-4" />
+    );
   };
 
   const getConditionColor = () => {
-    if (condition === "above") {
-      return "text-green-600 dark:text-green-400";
-    }
-    return "text-red-600 dark:text-red-400";
-  };
-
-  const isPriceNearTarget = () => {
-    const threshold = targetPrice * 0.02; // 2% threshold
-    const diff = Math.abs(currentPrice - targetPrice);
-    return diff <= threshold;
+    return condition === "above"
+      ? "text-green-600 dark:text-green-400"
+      : "text-red-600 dark:text-red-400";
   };
 
   return (
@@ -46,12 +46,12 @@ export default function AlertCard({ alert, onEdit, onDelete }) {
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-              {ticker}
+              {stockTicker}
             </h3>
             <div
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-2 ${getStatusColor()}`}
             >
-              {status === "triggered" ? "Triggered" : "Active"}
+              {triggered ? "Triggered" : "Active"}
             </div>
           </div>
           <div className="flex gap-2">
@@ -94,7 +94,7 @@ export default function AlertCard({ alert, onEdit, onDelete }) {
             </div>
           </div>
 
-          {isPriceNearTarget() && (
+          {approaching && (
             <div className="bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-md p-3 mt-4">
               <div className="flex items-center gap-2 text-yellow-800 dark:text-yellow-400 text-sm">
                 <svg
@@ -120,7 +120,8 @@ export default function AlertCard({ alert, onEdit, onDelete }) {
 
       <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
         <div className="text-sm text-slate-500 dark:text-slate-400">
-          Alert when price is {condition} {formatPrice(targetPrice)}
+          Alert when price is {condition === "over" ? "above" : "below"}{" "}
+          {formatPrice(targetPrice)}
         </div>
       </div>
     </div>

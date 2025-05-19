@@ -28,33 +28,29 @@ export const AuthProvider = ({ children }) => {
 
   // Handle OAuth redirect
   useEffect(() => {
-    const handleOAuthRedirect = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get("token");
-      const userData = urlParams.get("user");
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    const userDataEncoded = urlParams.get("user");
 
-      if (token) {
-        localStorage.setItem("auth_token", token);
-        if (userData) {
-          try {
-            const parsedUserData = JSON.parse(atob(userData));
-            setUser(parsedUserData);
-            localStorage.setItem("user_data", JSON.stringify(parsedUserData));
-          } catch (error) {
-            console.error("Failed to parse user data from redirect:", error);
-          }
+    if (token) {
+      localStorage.setItem("auth_token", token);
+
+      if (userDataEncoded) {
+        try {
+          const userData = JSON.parse(atob(userDataEncoded));
+          setUser(userData);
+          localStorage.setItem("user_data", JSON.stringify(userData));
+        } catch (error) {
+          console.error(
+            "Failed to decode or parse user data from redirect:",
+            error
+          );
         }
-
-        // Clean up URL
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname
-        );
       }
-    };
 
-    handleOAuthRedirect();
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   }, []);
 
   const login = () => {

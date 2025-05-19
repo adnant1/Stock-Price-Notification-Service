@@ -23,13 +23,15 @@ export default function AlertsPage() {
   const fetchAlerts = async () => {
     setLoading(true);
     try {
-      // In a real app, you would fetch from your backend
       const token = localStorage.getItem("auth_token");
-      const response = await fetch("/api/alerts", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/alerts/dashboard`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch alerts");
@@ -40,58 +42,6 @@ export default function AlertsPage() {
     } catch (error) {
       console.error("Error fetching alerts:", error);
       setError("Failed to load alerts. Please try again later.");
-
-      // For demo purposes, set some sample data
-      setAlerts([
-        {
-          id: "1",
-          ticker: "AAPL",
-          targetPrice: 190.0,
-          condition: "above",
-          currentPrice: 188.75,
-          status: "active",
-        },
-        {
-          id: "2",
-          ticker: "TSLA",
-          targetPrice: 180.0,
-          condition: "below",
-          currentPrice: 185.2,
-          status: "active",
-        },
-        {
-          id: "3",
-          ticker: "MSFT",
-          targetPrice: 350.0,
-          condition: "above",
-          currentPrice: 352.3,
-          status: "triggered",
-        },
-        {
-          id: "4",
-          ticker: "AMZN",
-          targetPrice: 130.0,
-          condition: "below",
-          currentPrice: 135.42,
-          status: "active",
-        },
-        {
-          id: "5",
-          ticker: "GOOGL",
-          targetPrice: 140.0,
-          condition: "above",
-          currentPrice: 138.75,
-          status: "active",
-        },
-        {
-          id: "6",
-          ticker: "META",
-          targetPrice: 300.0,
-          condition: "below",
-          currentPrice: 295.2,
-          status: "active",
-        },
-      ]);
     } finally {
       setLoading(false);
     }
