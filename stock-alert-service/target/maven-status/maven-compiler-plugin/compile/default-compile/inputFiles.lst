@@ -6,6 +6,7 @@
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/configuration/UserDynamoDbConfigProperties.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/configuration/WebConfigProperties.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/controller/AlertController.java
+/mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/controller/HomeController.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/controller/UserController.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/model/Alert.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/model/AlertViewModel.java
@@ -17,4 +18,5 @@
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/scheduler/SchedulerController.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/service/AlertService.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/service/EvaluationService.java
+/mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/service/JwtService.java
 /mnt/c/Users/adnan/OneDrive/Documents/Code/TickrAlert/stock-alert-service/src/main/java/com/adnant1/stock_alert_service/service/StockFetcherService.java

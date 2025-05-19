@@ -1,5 +1,7 @@
 package com.adnant1.stock_alert_service.configuration;
 
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.adnant1.stock_alert_service.model.User;
 import com.adnant1.stock_alert_service.notifier.NotificationService;
 import com.adnant1.stock_alert_service.repository.UserRepository;
+import com.adnant1.stock_alert_service.service.JwtService;
 
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SubscribeRequest;
@@ -29,14 +32,15 @@ public class SecurityConfig {
     private final UserRepository userRepository;
     private final SnsClient snsClient;
     private final NotificationService notificationService;
+    private final JwtService jwtService;
     private final String frontendUrl;
 
-    public SecurityConfig(UserRepository userRepository, SnsClient snsClient, NotificationService notificationService, 
-                          @Value("${frontend.url}") String frontendUrl) {
+    public SecurityConfig(UserRepository userRepository, SnsClient snsClient, NotificationService notificationService, @Value("${frontend.url}") String frontendUrl, JwtService jwtService) {
         this.userRepository = userRepository;
         this.snsClient = snsClient;
         this.notificationService = notificationService;
         this.frontendUrl = frontendUrl;
+        this.jwtService = jwtService;
     }
 
     /*
@@ -45,6 +49,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        System.out.println("Redirecting to: " + frontendUrl + "/alerts");
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/").permitAll() // public endpoints
@@ -56,7 +61,23 @@ public class SecurityConfig {
                     .userService(customOAuth2UserService()) // handles user + SNS setup
                 )
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect(frontendUrl);       // redirect after login
+                    OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
+
+                    String email = oauthUser.getAttribute("email");
+                    String name = oauthUser.getAttribute("name");
+
+                    // Generate JWT
+                    String token = jwtService.generateToken(email);
+
+                    // Encode user data as Base64 JSON
+                    String userDataJson = String.format("{\"email\":\"%s\",\"name\":\"%s\"}", email, name);
+                    String encodedUserData = Base64.getEncoder().encodeToString(userDataJson.getBytes());
+
+                    // Construct redirect URL
+                    String redirectUrl = frontendUrl + "/alerts?token=" + token + "&user=" + encodedUserData;
+
+                    // Perform redirect
+                    response.sendRedirect(redirectUrl);       // redirect after login
                 })
             );
 
