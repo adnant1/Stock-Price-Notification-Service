@@ -20,7 +20,7 @@ public class WebConfigProperties {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:5173") // frontend dev server
+                    .allowedOrigins("http://localhost:5173") // frontend server
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowedHeaders("*")
                     .allowCredentials(true);
