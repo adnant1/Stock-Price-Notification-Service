@@ -65,7 +65,7 @@ public class AlertController {
     * This endpoint retrieves enriched alert data for the dashboard view.
     * It includes the current stock price, triggered status, and a warning flag for price proximity.
     */
-    @GetMapping("/alerts/dashboard")
+    @GetMapping("/dashboard")
     public List<AlertViewModel> getDashboardAlerts(@AuthenticationPrincipal OAuth2User user) {
         String userId = extractUserId(user);
         return alertService.getEnrichedAlertsForUser(userId);
