@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()              // everything else requires login
             )
             .oauth2Login(oauth2 -> oauth2
+                .loginPage("/oauth2/authorization/google") //
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService()) // handles user + SNS setup
                 )
