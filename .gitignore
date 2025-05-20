@@ -36,6 +36,7 @@
 /stock-alert-service/.vscode/
 
 # Elastic Beanstalk Config
+/stock-alert-service/.ebignore
 /stock-alert-service/.elasticbeanstalk/*
 !/stock-alert-service/.elasticbeanstalk/*.cfg.yml
 !/stock-alert-service/.elasticbeanstalk/*.global.yml
