@@ -12,7 +12,8 @@ import com.adnant1.stock_alert_service.service.AlertService;
 
 import java.util.List;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,19 +36,34 @@ public class AlertController {
     }
 
     /*
-     * Internal method to extract userId from the OAuth2User object.
+     * This method extracts the user ID from the authenticated user's information.
      */
-    private String extractUserId(OAuth2User user) {
-        String email = user.getAttribute("email");
+    private String extractUserId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth != null ? auth.getPrincipal() : null;
+
+        String email = null;
+
+        if (principal instanceof OAuth2User oauthUser) {
+            email = oauthUser.getAttribute("email");
+        } else if (principal instanceof String s) {
+            email = s;
+        }
+
+        if (email == null) {
+            throw new RuntimeException("Authenticated user's email could not be determined.");
+        }
+
         return email.split("@")[0];
     }
+
     
     /*
      * This endpoint allows users to create a new stock alert. 
      */
     @PostMapping
-    public void createAlert(@RequestBody Alert alert, @AuthenticationPrincipal OAuth2User user) {
-        String userId = extractUserId(user);
+    public void createAlert(@RequestBody Alert alert) {
+        String userId = extractUserId();
         alert.setUserId(userId);
         alertService.createAlert(alert);
     }
@@ -56,8 +72,8 @@ public class AlertController {
      * This endpoint retrieves all stock alerts for a user. 
      */
     @GetMapping
-    public List<Alert> getAlertsByUser(@AuthenticationPrincipal OAuth2User user) {
-        String userId = extractUserId(user);
+    public List<Alert> getAlertsByUser() {
+        String userId = extractUserId();
         return alertService.getAlertsByUser(userId);
     }
 
@@ -66,8 +82,8 @@ public class AlertController {
     * It includes the current stock price, triggered status, and a warning flag for price proximity.
     */
     @GetMapping("/dashboard")
-    public List<AlertViewModel> getDashboardAlerts(@AuthenticationPrincipal OAuth2User user) {
-        String userId = extractUserId(user);
+    public List<AlertViewModel> getDashboardAlerts() {
+        String userId = extractUserId();
         return alertService.getEnrichedAlertsForUser(userId);
     }
 
@@ -75,8 +91,8 @@ public class AlertController {
      * This endpoint updates a specific stock alert's price threshold.
      */
     @PutMapping(path = "/{stockTicker}")
-    public void updateAlert(@PathVariable String stockTicker, @RequestParam double newPrice, @AuthenticationPrincipal OAuth2User user) {
-        String userId = extractUserId(user);
+    public void updateAlert(@PathVariable String stockTicker, @RequestParam double newPrice) {
+        String userId = extractUserId();
         alertService.updateAlertPrice(userId, stockTicker, newPrice);
     }
 
@@ -84,8 +100,8 @@ public class AlertController {
      * This endpoint deletes a specific stock alert by its userId and stockTicker. 
      */
     @DeleteMapping(path = "/{stockTicker}")
-    public void deleteAlert(@PathVariable String stockTicker, @AuthenticationPrincipal OAuth2User user) {
-        String userId = extractUserId(user);
+    public void deleteAlert(@PathVariable String stockTicker) {
+        String userId = extractUserId();
         alertService.deleteAlert(userId, stockTicker);
     }
 

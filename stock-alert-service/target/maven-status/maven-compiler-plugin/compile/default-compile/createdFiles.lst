@@ -5,13 +5,11 @@ com/adnant1/stock_alert_service/StockAlertServiceApplication.class
 com/adnant1/stock_alert_service/configuration/FinnhubConfigProperties.class
 com/adnant1/stock_alert_service/controller/HomeController.class
 com/adnant1/stock_alert_service/controller/AlertController.class
-com/adnant1/stock_alert_service/configuration/WebConfigProperties$1.class
 com/adnant1/stock_alert_service/service/StockFetcherService.class
 com/adnant1/stock_alert_service/repository/AlertRepository.class
 com/adnant1/stock_alert_service/service/AlertService.class
 com/adnant1/stock_alert_service/service/EvaluationService.class
 com/adnant1/stock_alert_service/model/User.class
-com/adnant1/stock_alert_service/configuration/WebConfigProperties.class
 com/adnant1/stock_alert_service/configuration/UserDynamoDbConfigProperties.class
 com/adnant1/stock_alert_service/scheduler/SchedulerController.class
 com/adnant1/stock_alert_service/model/AlertViewModel.class

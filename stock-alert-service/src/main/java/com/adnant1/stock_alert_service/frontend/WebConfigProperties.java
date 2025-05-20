@@ -1,4 +1,4 @@
-package com.adnant1.stock_alert_service.configuration;
+package com.adnant1.stock_alert_service.frontend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
