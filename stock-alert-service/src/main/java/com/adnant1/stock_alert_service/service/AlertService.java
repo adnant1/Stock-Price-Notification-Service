@@ -56,7 +56,7 @@ public class AlertService {
             double targetPrice = alert.getTargetPrice();
             String condition = alert.getCondition();
 
-            boolean triggered = condition.equals("over")
+            boolean triggered = condition.equals("above")
                 ? currentPrice > targetPrice
                 : currentPrice < targetPrice;
 
@@ -65,6 +65,7 @@ public class AlertService {
             enrichedAlerts.add(new AlertViewModel(
                 alert.getStockTicker(),
                 targetPrice,
+                condition,
                 currentPrice,
                 triggered,
                 approaching

@@ -14,9 +14,10 @@ public class AlertViewModel {
     private boolean triggered;
     private boolean approaching;
 
-    public AlertViewModel(String stockTicker, double targetPrice, double currentPrice, boolean triggered, boolean approaching) {
+    public AlertViewModel(String stockTicker, double targetPrice, String condition, double currentPrice, boolean triggered, boolean approaching) {
         this.stockTicker = stockTicker;
         this.targetPrice = targetPrice;
+        this.condition = condition;
         this.currentPrice = currentPrice;
         this.triggered = triggered;
         this.approaching = approaching;
