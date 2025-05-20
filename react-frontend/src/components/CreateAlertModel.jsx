@@ -7,7 +7,7 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     stockTicker: "",
     targetPrice: "",
-    condition: "above",
+    condition: "above", // Set default to 'above'
   });
   const [errors, setErrors] = useState({});
 
@@ -30,10 +30,11 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.ticker) {
-      newErrors.ticker = "Stock ticker is required";
-    } else if (!/^[A-Z]{1,5}$/.test(formData.ticker)) {
-      newErrors.ticker = "Enter a valid stock ticker (1-5 uppercase letters)";
+    if (!formData.stockTicker) {
+      newErrors.stockTicker = "Stock ticker is required";
+    } else if (!/^[A-Z]{1,5}$/.test(formData.stockTicker)) {
+      newErrors.stockTicker =
+        "Enter a valid stock ticker (1-5 uppercase letters)";
     }
 
     if (!formData.targetPrice) {
@@ -54,7 +55,7 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
 
     if (validateForm()) {
       onSubmit({
-        stockTicker: formData.ticker,
+        stockTicker: formData.stockTicker,
         targetPrice: Number.parseFloat(formData.targetPrice),
         condition: formData.condition,
       });
@@ -89,19 +90,19 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
               <input
                 type="text"
                 id="ticker"
-                name="ticker"
-                value={formData.ticker}
+                name="stockTicker"
+                value={formData.stockTicker}
                 onChange={handleChange}
                 placeholder="e.g. AAPL"
                 className={`w-full px-3 py-2 border ${
-                  errors.ticker
+                  errors.stockTicker
                     ? "border-red-500 dark:border-red-500"
                     : "border-slate-300 dark:border-slate-600"
                 } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white`}
               />
-              {errors.ticker && (
+              {errors.stockTicker && (
                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                  {errors.ticker}
+                  {errors.stockTicker}
                 </p>
               )}
             </div>

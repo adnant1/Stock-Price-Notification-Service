@@ -120,7 +120,7 @@ export default function AlertCard({ alert, onEdit, onDelete }) {
 
       <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
         <div className="text-sm text-slate-500 dark:text-slate-400">
-          Alert when price is {condition === "over" ? "above" : "below"}{" "}
+          Alert when price is {condition === "above" ? "above" : "below"}{" "}
           {formatPrice(targetPrice)}
         </div>
       </div>

@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 export default function EditAlertModel({ alert, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     id: alert.id,
-    ticker: alert.ticker,
+    stockTicker: alert.stockTicker,
     targetPrice: alert.targetPrice.toString(),
     condition: alert.condition,
   });
@@ -50,7 +50,7 @@ export default function EditAlertModel({ alert, onClose, onSubmit }) {
     if (validateForm()) {
       onSubmit({
         id: formData.id,
-        ticker: formData.ticker, // Keep the original ticker
+        stockTicker: formData.stockTicker, // Keep the original ticker
         targetPrice: Number.parseFloat(formData.targetPrice),
         condition: formData.condition,
       });
@@ -62,7 +62,7 @@ export default function EditAlertModel({ alert, onClose, onSubmit }) {
       <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg max-w-md w-full">
         <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-            Edit Alert for {alert.ticker}
+            Edit Alert for {alert.stockTicker}
           </h2>
           <button
             onClick={onClose}

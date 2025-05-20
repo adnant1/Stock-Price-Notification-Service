@@ -84,27 +84,28 @@ export default function AlertsPage() {
 
   const handleEditAlert = async (updatedAlert) => {
     try {
-      // In a real app, you would send to your backend
+      console.log("Updating alert:", updatedAlert);
+
       const token = localStorage.getItem("auth_token");
-      const response = await fetch(`/api/alerts/${updatedAlert.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedAlert),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/alerts/${
+          updatedAlert.stockTicker
+        }?newPrice=${updatedAlert.targetPrice}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedAlert),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update alert");
       }
 
-      // Update in local state
-      setAlerts(
-        alerts.map((alert) =>
-          alert.id === updatedAlert.id ? { ...alert, ...updatedAlert } : alert
-        )
-      );
+      await fetchAlerts(); // Refresh the alerts list
 
       setEditingAlert(null);
     } catch (error) {
@@ -113,27 +114,29 @@ export default function AlertsPage() {
     }
   };
 
-  const handleDeleteAlert = async (alertId) => {
+  const handleDeleteAlert = async (stockTicker) => {
     if (!confirm("Are you sure you want to delete this alert?")) {
       return;
     }
 
     try {
-      // In a real app, you would send to your backend
       const token = localStorage.getItem("auth_token");
-      const response = await fetch(`/api/alerts/${alertId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/alerts/${stockTicker}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete alert");
       }
 
       // Remove from local state
-      setAlerts(alerts.filter((alert) => alert.id !== alertId));
+      setAlerts(alerts.filter((alert) => alert.stockTicker !== stockTicker));
     } catch (error) {
       console.error("Error deleting alert:", error);
       alert("Failed to delete alert. Please try again.");
@@ -205,7 +208,7 @@ export default function AlertsPage() {
                 key={alert.id}
                 alert={alert}
                 onEdit={() => setEditingAlert(alert)}
-                onDelete={() => handleDeleteAlert(alert.id)}
+                onDelete={() => handleDeleteAlert(alert.stockTicker)}
               />
             ))}
           </div>
