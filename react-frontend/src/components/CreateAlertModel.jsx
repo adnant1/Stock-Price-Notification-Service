@@ -41,7 +41,7 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
     }
   };
 
-  const validateForm = () => {
+  const validateForm = async () => {
     const newErrors = {};
 
     if (!formData.stockTicker) {
@@ -49,6 +49,11 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
     } else if (!/^[A-Z]{1,5}$/.test(formData.stockTicker)) {
       newErrors.stockTicker =
         "Enter a valid stock ticker (1-5 uppercase letters)";
+    } else {
+      const isValid = await checkTickerExists(formData.stockTicker);
+      if (!isValid) {
+        newErrors.stockTicker = "This stock ticker does not exist.";
+      }
     }
 
     if (!formData.targetPrice) {
@@ -64,16 +69,17 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      onSubmit({
-        stockTicker: formData.stockTicker,
-        targetPrice: Number.parseFloat(formData.targetPrice),
-        condition: formData.condition,
-      });
-    }
+    const isValid = await validateForm();
+    if (!isValid) return;
+
+    onSubmit({
+      stockTicker: formData.stockTicker,
+      targetPrice: Number.parseFloat(formData.targetPrice),
+      condition: formData.condition,
+    });
   };
 
   return (
