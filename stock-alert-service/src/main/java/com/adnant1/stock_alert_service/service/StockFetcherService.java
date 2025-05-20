@@ -24,15 +24,40 @@ public class StockFetcherService {
      * This method fetches the current stock price for a given stock ticker symbol.
      * It constructs the API URL using the base URL and API key from the configuration properties.
      */
-    public double fetchCurrentStockPrice(String stockTicker){
-        String url = String.format("%s/quote?symbol=%s&token=%s", config.getBaseUrl(), stockTicker, config.getApiKey());
-        StockPriceResponse response = restTemplate.getForObject(url, StockPriceResponse.class);
-
-        if (response == null) {
-            throw new RuntimeException("Failed to fetch stock price");
-        } 
-        
-        return response.getCurrentPrice();
+    public double fetchCurrentStockPrice(String stockTicker) {
+        String url = String.format("%s/quote?symbol=%s&token=%s",
+                config.getBaseUrl(), stockTicker, config.getApiKey());
+    
+        int maxAttempts = 3;
+        long backoffMs = 300;
+    
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                StockPriceResponse response = restTemplate.getForObject(url, StockPriceResponse.class);
+    
+                if (response == null || response.getCurrentPrice() <= 0) {
+                    throw new RuntimeException("Empty or invalid response from Finnhub.");
+                }
+    
+                return response.getCurrentPrice();
+            } catch (Exception e) {
+                System.out.println("Attempt " + attempt + " to fetch price for " + stockTicker + " failed: " + e.getMessage());
+    
+                if (attempt == maxAttempts) {
+                    System.err.println("Failed to fetch stock price after " + maxAttempts + " attempts for: " + stockTicker);
+                    return -1; // Graceful fallback
+                }
+    
+                try {
+                    Thread.sleep(backoffMs * attempt); // Simple backoff
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    return -1;
+                }
+            }
+        }
+    
+        return -1; // Fallback (should not be reached)
     }
 
     /*

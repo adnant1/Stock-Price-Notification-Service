@@ -29,20 +29,22 @@ public class EvaluationService {
      * This method evaluates whether the current stock price meets the alert conditions.
      * It compares the current stock price with the user's set threshold and returns true if the user 's set condition is met.
      */
-    private boolean evaluateAlert(Alert alert){
-        // Get current price and needed parameters from the alert object
+    private boolean evaluateAlert(Alert alert) {
         double currentPrice = stockFetcherService.fetchCurrentStockPrice(alert.getStockTicker());
+    
+        if (currentPrice == -1) {
+            System.out.println("Skipping evaluation for " + alert.getStockTicker() + ": price unavailable.");
+            return false; // Skip if we couldn't fetch a valid price
+        }
+    
         double targetPrice = alert.getTargetPrice();
         String condition = alert.getCondition();
-
-        // Check if the condition is met
-        if (condition.equals("above")) {
-            return currentPrice > targetPrice;
-        } else {
-            return currentPrice < targetPrice;
-        }
-
+    
+        return condition.equals("above")
+            ? currentPrice > targetPrice
+            : currentPrice < targetPrice;
     }
+    
 
     /*
      * This method takes in a list of alerts and evaluates each one.
