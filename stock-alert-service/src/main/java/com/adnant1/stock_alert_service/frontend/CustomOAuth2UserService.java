@@ -41,7 +41,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
         OAuth2User oauthUser = new DefaultOAuth2UserService().loadUser(request);
-        System.out.println("✅ CustomOAuth2UserService invoked. Email: " + oauthUser.getAttribute("email"));
         String email = oauthUser.getAttribute("email");
         String userId = email.split("@")[0];
 

@@ -51,13 +51,9 @@ public class SecurityConfig {
                     .userService(customOAuth2UserService) // handles user + SNS setup
                 )
                 .successHandler((request, response, authentication) -> { // handle successful login
-                    System.out.println("SuccessHandler triggered.");
                     Object principal = authentication.getPrincipal(); // safely grab the object first
-                    System.out.println("Auth principal class: " + (principal != null ? principal.getClass().getName() : "null"));
 
                     if (principal instanceof OAuth2User oauthUser) {
-                        System.out.println("✅ oauthUser = " + oauthUser);
-                        System.out.println("✅ Available attributes: " + oauthUser.getAttributes());
                         String email = oauthUser.getAttribute("email");
                         String name = oauthUser.getAttribute("name");
 

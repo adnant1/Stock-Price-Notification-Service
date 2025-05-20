@@ -3,7 +3,6 @@ com/adnant1/stock_alert_service/notifier/NotificationService.class
 com/adnant1/stock_alert_service/model/Alert.class
 com/adnant1/stock_alert_service/StockAlertServiceApplication.class
 com/adnant1/stock_alert_service/configuration/FinnhubConfigProperties.class
-com/adnant1/stock_alert_service/controller/HomeController.class
 com/adnant1/stock_alert_service/controller/AlertController.class
 com/adnant1/stock_alert_service/service/StockFetcherService.class
 com/adnant1/stock_alert_service/repository/AlertRepository.class
