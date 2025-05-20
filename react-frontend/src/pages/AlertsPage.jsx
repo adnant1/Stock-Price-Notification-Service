@@ -50,13 +50,11 @@ export default function AlertsPage() {
   const handleCreateAlert = async (newAlert) => {
     try {
       const token = localStorage.getItem("auth_token");
-
       if (!token) {
         console.log("No authentication token found");
       } else {
         console.log("Authentication token found");
       }
-
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/alerts`,
         {
@@ -68,13 +66,10 @@ export default function AlertsPage() {
           body: JSON.stringify(newAlert),
         }
       );
-
       if (!response.ok) {
-        throw new Error("Failed to create alert");
+        throw response;
       }
-
       await fetchAlerts(); // Refresh the alerts list
-
       setShowCreateModel(false);
     } catch (error) {
       console.error("Error creating alert:", error);
@@ -217,7 +212,9 @@ export default function AlertsPage() {
 
       {showCreateModel && (
         <CreateAlertModel
-          onClose={() => setShowCreateModel(false)}
+          onClose={() => {
+            setShowCreateModel(false);
+          }}
           onSubmit={handleCreateAlert}
         />
       )}

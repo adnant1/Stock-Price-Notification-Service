@@ -3,13 +3,20 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 
-export default function CreateAlertModel({ onClose, onSubmit }) {
+export default function CreateAlertModel({
+  onClose,
+  onSubmit,
+  externalErrors = {},
+  onClearExternalError,
+}) {
   const [formData, setFormData] = useState({
     stockTicker: "",
     targetPrice: "",
     condition: "above", // Set default to 'above'
   });
   const [errors, setErrors] = useState({});
+
+  const mergedErrors = { ...errors, ...externalErrors };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,20 +32,38 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
         [name]: null,
       });
     }
+    if (externalErrors[name] && onClearExternalError) {
+      onClearExternalError(name);
+    }
   };
 
   const checkTickerExists = async (ticker) => {
     const url = `https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${
       import.meta.env.VITE_FINNHUB_API_KEY
     }`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      return data.c && data.c > 0; // c = current price
-    } catch (error) {
-      console.error("Error validating ticker with Finnhub:", error);
-      return false;
+
+    const maxRetries = 3;
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        return data.c && data.c > 0;
+      } catch (error) {
+        console.warn(`Attempt ${attempt} failed:`, error.message);
+        if (attempt < maxRetries) {
+          await delay(300 * attempt); // simple backoff
+        }
+      }
     }
+
+    console.error(
+      `Failed to validate ticker "${ticker}" after ${maxRetries} attempts.`
+    );
+    return false;
   };
 
   const validateForm = async () => {
@@ -115,14 +140,14 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
                 onChange={handleChange}
                 placeholder="e.g. AAPL"
                 className={`w-full px-3 py-2 border ${
-                  errors.stockTicker
+                  mergedErrors.stockTicker
                     ? "border-red-500 dark:border-red-500"
                     : "border-slate-300 dark:border-slate-600"
                 } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white`}
               />
-              {errors.stockTicker && (
+              {mergedErrors.stockTicker && (
                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                  {errors.stockTicker}
+                  {mergedErrors.stockTicker}
                 </p>
               )}
             </div>
@@ -144,14 +169,14 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
                 step="0.01"
                 min="0.01"
                 className={`w-full px-3 py-2 border ${
-                  errors.targetPrice
+                  mergedErrors.targetPrice
                     ? "border-red-500 dark:border-red-500"
                     : "border-slate-300 dark:border-slate-600"
                 } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white`}
               />
-              {errors.targetPrice && (
+              {mergedErrors.targetPrice && (
                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                  {errors.targetPrice}
+                  {mergedErrors.targetPrice}
                 </p>
               )}
             </div>
