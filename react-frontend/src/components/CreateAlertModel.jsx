@@ -27,6 +27,20 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
     }
   };
 
+  const checkTickerExists = async (ticker) => {
+    const url = `https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${
+      import.meta.env.VITE_FINNHUB_API_KEY
+    }`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      return data.c && data.c > 0; // c = current price
+    } catch (error) {
+      console.error("Error validating ticker with Finnhub:", error);
+      return false;
+    }
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
