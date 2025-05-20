@@ -36,7 +36,7 @@ public class EvaluationService {
         String condition = alert.getCondition();
 
         // Check if the condition is met
-        if (condition.equals("over")) {
+        if (condition.equals("above")) {
             return currentPrice > targetPrice;
         } else {
             return currentPrice < targetPrice;
