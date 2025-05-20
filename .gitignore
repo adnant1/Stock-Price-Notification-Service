@@ -1,72 +1,72 @@
 # =======================
-# === BACKEND (Spring Boot)
+# === stock-alert-service (Spring Boot)
 # =======================
-/backend/HELP.md
-/backend/target/
-/backend/.apt_generated
-/backend/.classpath
-/backend/.factorypath
-/backend/.project
-/backend/.settings
-/backend/.springBeans
-/backend/.sts4-cache
+/stock-alert-service/HELP.md
+/stock-alert-service/target/
+/stock-alert-service/.apt_generated
+/stock-alert-service/.classpath
+/stock-alert-service/.factorypath
+/stock-alert-service/.project
+/stock-alert-service/.settings
+/stock-alert-service/.springBeans
+/stock-alert-service/.sts4-cache
 
 # Maven Wrapper (do not ignore the jar file)
-!/backend/.mvn/wrapper/maven-wrapper.jar
-!/backend/**/src/main/**/target/
-!/backend/**/src/test/**/target/
+!/stock-alert-service/.mvn/wrapper/maven-wrapper.jar
+!/stock-alert-service/**/src/main/**/target/
+!/stock-alert-service/**/src/test/**/target/
 
 # IntelliJ IDEA
-/backend/.idea
-/backend/*.iws
-/backend/*.iml
-/backend/*.ipr
+/stock-alert-service/.idea
+/stock-alert-service/*.iws
+/stock-alert-service/*.iml
+/stock-alert-service/*.ipr
 
 # NetBeans
-/backend/nbproject/private/
-/backend/nbbuild/
-/backend/dist/
-/backend/nbdist/
-/backend/.nb-gradle/
-/backend/build/
-!/backend/**/src/main/**/build/
-!/backend/**/src/test/**/build/
+/stock-alert-service/nbproject/private/
+/stock-alert-service/nbbuild/
+/stock-alert-service/dist/
+/stock-alert-service/nbdist/
+/stock-alert-service/.nb-gradle/
+/stock-alert-service/build/
+!/stock-alert-service/**/src/main/**/build/
+!/stock-alert-service/**/src/test/**/build/
 
 # VS Code
-/backend/.vscode/
+/stock-alert-service/.vscode/
 
 # Elastic Beanstalk Config
-/backend/.elasticbeanstalk/*
-!/backend/.elasticbeanstalk/*.cfg.yml
-!/backend/.elasticbeanstalk/*.global.yml
+/stock-alert-service/.elasticbeanstalk/*
+!/stock-alert-service/.elasticbeanstalk/*.cfg.yml
+!/stock-alert-service/.elasticbeanstalk/*.global.yml
 
 ---
 
 # =======================
-# === FRONTEND (React + Vite)
+# === react-frontend (React + Vite)
 # =======================
-/frontend/node_modules/
-/frontend/dist/
-/frontend/dist-ssr/
-/frontend/*.local
-/frontend/.env*
-/frontend/.DS_Store
+/react-frontend/node_modules/
+/react-frontend/dist/
+/react-frontend/dist-ssr/
+/react-frontend/*.local
+/react-frontend/.env*
+/react-frontend/.DS_Store
 
 # Logs
-/frontend/logs
-/frontend/*.log
-/frontend/npm-debug.log*
-/frontend/yarn-debug.log*
-/frontend/yarn-error.log*
-/frontend/pnpm-debug.log*
-/frontend/lerna-debug.log*
+/react-frontend/logs
+/react-frontend/*.log
+/react-frontend/npm-debug.log*
+/react-frontend/yarn-debug.log*
+/react-frontend/yarn-error.log*
+/react-frontend/pnpm-debug.log*
+/react-frontend/lerna-debug.log*
 
 # Editor files
-/frontend/.idea
-/frontend/.vscode/
-!/frontend/.vscode/extensions.json
-/frontend/*.suo
-/frontend/*.ntvs*
-/frontend/*.njsproj
-/frontend/*.sln
-/frontend/*.sw?
+/react-frontend/.idea
+/react-frontend/.vscode/
+!/react-frontend/.vscode/extensions.json
+/react-frontend/*.suo
+/react-frontend/*.ntvs*
+/react-frontend/*.njsproj
+/react-frontend/*.sln
+/react-frontend/*.sw?
