@@ -49,31 +49,31 @@ export default function AlertsPage() {
 
   const handleCreateAlert = async (newAlert) => {
     try {
-      // In a real app, you would send to your backend
       const token = localStorage.getItem("auth_token");
-      const response = await fetch("/api/alerts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newAlert),
-      });
+
+      if (!token) {
+        console.log("No authentication token found");
+      } else {
+        console.log("Authentication token found");
+      }
+
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/alerts`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(newAlert),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create alert");
       }
 
-      // For demo purposes, add to local state
-      setAlerts([
-        ...alerts,
-        {
-          ...newAlert,
-          id: Date.now().toString(),
-          status: "active",
-          currentPrice: Math.random() * 100 + 100, // Random price for demo
-        },
-      ]);
+      await fetchAlerts(); // Refresh the alerts list
 
       setShowCreateModel(false);
     } catch (error) {

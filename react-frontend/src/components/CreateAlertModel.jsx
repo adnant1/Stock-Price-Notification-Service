@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 
 export default function CreateAlertModel({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
-    ticker: "",
+    stockTicker: "",
     targetPrice: "",
     condition: "above",
   });
@@ -54,7 +54,7 @@ export default function CreateAlertModel({ onClose, onSubmit }) {
 
     if (validateForm()) {
       onSubmit({
-        ticker: formData.ticker,
+        stockTicker: formData.ticker,
         targetPrice: Number.parseFloat(formData.targetPrice),
         condition: formData.condition,
       });
