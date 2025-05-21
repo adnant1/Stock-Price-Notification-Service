@@ -41,7 +41,7 @@ public class SecurityConfig {
             .cors(withDefaults()) // enable CORS
             .csrf(csrf -> csrf.disable()) // disable CSRF protection
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/").permitAll() // public endpoints
+                .requestMatchers("/login", "/", "/scheduler/run").permitAll() // public endpoints
                 .anyRequest().authenticated()              // everything else requires login
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class) // add JWT filter

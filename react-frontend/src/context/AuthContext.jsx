@@ -1,12 +1,14 @@
 "use client";
 
 import { createContext, useState, useContext, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if user is already logged in
@@ -48,8 +50,8 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      // Clean up URL
-      window.history.replaceState({}, document.title, window.location.pathname);
+      // Redirect to the home page after login
+      navigate("/alerts", { replace: true });
     }
   }, []);
 
