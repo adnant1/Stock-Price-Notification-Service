@@ -76,14 +76,15 @@ public class AlertService {
     }
 
     /*
-     * This method updates the price threshold for a specific stock alert. 
+     * This method updates the price threshold and condition for a specific stock alert. 
      * It checks if the alert exists before updating it in the repository.
      */
-    public void updateAlertPrice(String userId, String stockTicker, double newPrice) {
+    public void updateAlert(String userId, String stockTicker, double newPrice, String newCondition) {
         Optional<Alert> alert = alertRepository.findAlert(userId, stockTicker);
 
-        if (!alert.isEmpty()) {
+        if (alert.isPresent()) {
             alert.get().setTargetPrice(newPrice);
+            alert.get().setCondition(newCondition);
             alertRepository.updateAlert(alert.get());
         } else {
             throw new IllegalArgumentException("Alert not found");

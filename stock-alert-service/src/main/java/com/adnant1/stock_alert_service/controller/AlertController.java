@@ -91,9 +91,9 @@ public class AlertController {
      * This endpoint updates a specific stock alert's price threshold.
      */
     @PutMapping(path = "/{stockTicker}")
-    public void updateAlert(@PathVariable String stockTicker, @RequestParam double newPrice) {
+    public void updateAlert(@PathVariable String stockTicker, @RequestParam double newPrice, @RequestParam String newCondition) {
         String userId = extractUserId();
-        alertService.updateAlertPrice(userId, stockTicker, newPrice);
+        alertService.updateAlert(userId, stockTicker, newPrice, newCondition);
     }
 
     /*
