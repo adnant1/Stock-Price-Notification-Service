@@ -70,4 +70,6 @@
 /react-frontend/*.ntvs*
 /react-frontend/*.njsproj
 /react-frontend/*.sln
-/react-frontend/*.sw?
+/react-frontend/*.sw
+
+.vscode/*
