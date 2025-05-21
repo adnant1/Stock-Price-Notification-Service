@@ -79,13 +79,13 @@ export default function AlertsPage() {
 
   const handleEditAlert = async (updatedAlert) => {
     try {
-      console.log("Updating alert:", updatedAlert);
-
       const token = localStorage.getItem("auth_token");
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/alerts/${
           updatedAlert.stockTicker
-        }?newPrice=${updatedAlert.targetPrice}`,
+        }?newPrice=${updatedAlert.targetPrice}&newCondition=${
+          updatedAlert.condition
+        }`,
         {
           method: "PUT",
           headers: {
