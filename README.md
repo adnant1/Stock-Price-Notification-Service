@@ -1,4 +1,4 @@
-# 📈 TickrAlert — Stock Price Notification System
+# 📈 TickrAlert — Stock Price Notification Service
 
 TickrAlert is a full-stack stock price alert system that allows users to create custom notifications based on real-time stock data. When a stock price crosses a user's target threshold, an alert is triggered and delivered via email using AWS SNS.
 
